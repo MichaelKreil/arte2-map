@@ -5,13 +5,28 @@ $(function () {
 	var graph = generateGraph(['eu']);
 	canvas.setGraph(graph);
 
+	$('.country_button').click(function (e) {
+		var country = $(this).attr('country');
+		$('.country_button').removeClass('active');
+		$('.description').removeClass('active');
+		$('#btn_'+country).addClass('active');
+		$('#text_'+country).addClass('active');
+
+		graph = generateGraph([country]);
+
+		force.stop();
+		force.nodes(graph.nodes).links(graph.links);
+		force.start();
+		canvas.setGraph(graph);
+	})
+
 	var force = d3.layout.force()
 		.nodes(graph.nodes)
 		.links(graph.links)
 		.linkDistance(10)
 		.linkStrength(0.1)
-		.chargeDistance(50)
-		.charge(function (node) { return node.size*node.size*(-6) })
+		.chargeDistance(80)
+		.charge(function (node) { return node.size*node.size*(-8) })
 		.gravity(0)
 		.start()
 		.on('tick', function () {

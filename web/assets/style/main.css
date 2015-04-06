@@ -54,9 +54,16 @@ h1 {
 	border: 3px solid rgba(234,232,230,1);
 	border-left: none;
 	border-right: none;
+	        transition: background-color 0.1s;
+	-webkit-transition: background-color 0.1s;
+	cursor: pointer;
 }
 
-.country_button.active {
+.country_button:hover {
+	background: #BACFA2;
+}
+
+.country_button.active, .country_button.active:hover {
 	position: relative;
 	z-index: 1000;
 	background: #8dc63f;
