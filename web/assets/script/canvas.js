@@ -118,9 +118,9 @@ function Canvas () {
 			mapData.all.unshift(country);
 		})
 
-		var scale = 1500;//1700;
-		var dx = 1800;//1886.65;
-		var dy = 1200;//891.55
+		var scale = 1700;//1700;
+		var dx = 1900;//1886.65;
+		var dy = 1150;//891.55
 
 		mapData.all.forEach(project);
 		mapData.negative.forEach(project);
@@ -130,11 +130,14 @@ function Canvas () {
 			var sumX = 0;
 			var sumY = 0;
 			var count = 0;
-			country.forEach(function (p) {
-				sumX += p[0];
-				sumY += p[1];
-				count++;
-			})
+			for (var i = 1; i < country.length; i++) {
+				var p1 = country[i-1];
+				var p2 = country[i];
+				var d = p1[0]*p2[1]-p1[1]*p2[0];
+				sumX += (p1[0]+p2[0])*d/3;
+				sumY += (p1[1]+p2[1])*d/3;
+				count += d;
+			}
 			key = key.toUpperCase();
 			mapData.countries[key] = { x:1000*sumX/count, y:1000*sumY/count };
 		})

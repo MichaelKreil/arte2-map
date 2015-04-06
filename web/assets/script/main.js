@@ -10,8 +10,8 @@ $(function () {
 		.links(graph.links)
 		.linkDistance(10)
 		.linkStrength(0.1)
-		.chargeDistance(100)
-		.charge(function (node) { return node.size*node.size*(-10) })
+		.chargeDistance(50)
+		.charge(function (node) { return node.size*node.size*(-6) })
 		.gravity(0)
 		.start()
 		.on('tick', function () {
