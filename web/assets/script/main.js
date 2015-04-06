@@ -73,8 +73,9 @@ function generateGraph(query) {
 				var asn = data.asns[id];
 				nodes[id] = asn;
 				if (!asn.x) {
-					asn.x = Math.random();
-					asn.y = Math.random();
+					var c = mapData.countries[asn.country];
+					asn.x = c.x + (Math.random()-0.5)*10;
+					asn.y = c.y + (Math.random()-0.5)*10;
 				}
 				asn.count = 0;
 			}
@@ -88,9 +89,11 @@ function generateGraph(query) {
 		return newPath;
 	})
 
+	sum /= paths.length;
+
 	return {
 		nodes: Object.keys(nodes).map(function (key) {
-			nodes[key].size = Math.sqrt(nodes[key].count/sum)*10
+			nodes[key].size = Math.sqrt(nodes[key].count/sum)/10
 			return nodes[key];
 		}),
 		edges: Object.keys(edges).map(function (key) { return edges[key] }),
