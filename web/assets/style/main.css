@@ -19,10 +19,18 @@ html, body, #content {
 	background: #eae8e6;
 	padding: 20px;
 }
+
 #map {
 	background: #f0eeec;
 	border-left: 1px solid #939598;
 	z-index: 100;
+	overflow: hidden;
+}
+
+#map canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 h1 {
