@@ -23,10 +23,10 @@ $(function () {
 	var force = d3.layout.force()
 		.nodes(graph.nodes)
 		.links(graph.links)
-		.linkDistance(10)
-		.linkStrength(0.1)
+		.linkDistance(0)
+		.linkStrength(0.01)
 		.chargeDistance(80)
-		.charge(function (node) { return node.size*node.size*(-8) })
+		.charge(function (node) { return Math.pow(node.size, 1.5)*(-25) })
 		.gravity(0)
 		.start()
 		.on('tick', function () {
@@ -55,6 +55,7 @@ function generateGraph(query) {
 	var edges = {};
 	var links = [];
 	var paths = [];
+	var sum = 0;
 
 	query.forEach(function (cc) {
 		paths = paths.concat(data.views[cc]);
@@ -63,6 +64,7 @@ function generateGraph(query) {
 	paths = paths.map(function (path) {
 		var count = path[0];
 		var newPath = [count];
+		sum += count;
 
 		for (var i = 1; i < path.length; i++) {
 			var id = path[i];
@@ -88,7 +90,7 @@ function generateGraph(query) {
 
 	return {
 		nodes: Object.keys(nodes).map(function (key) {
-			nodes[key].size = Math.sqrt(nodes[key].count)*0.3
+			nodes[key].size = Math.sqrt(nodes[key].count/sum)*10
 			return nodes[key];
 		}),
 		edges: Object.keys(edges).map(function (key) { return edges[key] }),

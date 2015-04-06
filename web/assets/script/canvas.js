@@ -94,7 +94,7 @@ function Canvas () {
 		ctx2.fillStyle = '#000';
 		graph.nodes.forEach(function (node) {
 			ctx2.beginPath();
-			var r = node.size * scale2;
+			var r = node.size * scale2 + 1;
 			ctx2.ellipse(node.x*scale2 + x0, node.y*scale2 + y0, r, r, 0, 0, Math.PI*2);
 			ctx2.fill();
 		})
