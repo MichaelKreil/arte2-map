@@ -103,21 +103,21 @@ h1 {
 #logo_rts  { background-image: url('rts.png');  width: 30px; margin-left: 5px; }
 #logo_odc  { background-image: url('odc.png');  width: 51px; margin-left: 5px; }
 
+#sidebar {
+	width: 240px;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+}
+#map {
+	top: 0px;
+	left: 280px;
+	bottom: 0px;
+	right: 0px;
+}
 
 @media (max-width: 800px) {
 }
 
 @media (min-width: 801px) {
-	#sidebar {
-		width: 240px;
-		top: 0px;
-		left: 0px;
-		bottom: 0px;
-	}
-	#map {
-		top: 0px;
-		left: 280px;
-		bottom: 0px;
-		right: 0px;
-	}
 }
