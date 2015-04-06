@@ -2,7 +2,7 @@ $(function () {
 	initData();
 
 	var canvas = new Canvas();
-	var graph = generateGraph(['ch']);
+	var graph = generateGraph(['eu']);
 	canvas.setGraph(graph);
 
 	var force = d3.layout.force()
@@ -10,11 +10,12 @@ $(function () {
 		.links(graph.links)
 		.linkDistance(10)
 		.linkStrength(0.1)
-		.charge(-30)
+		.chargeDistance(100)
+		.charge(function (node) { return node.size*node.size*(-10) })
 		.gravity(0)
 		.start()
 		.on('tick', function () {
-			force.alpha(0.1);
+			var alpha = force.alpha();
 			canvas.redraw();
 			graph.nodes.forEach(function (node) {
 				if (!mapData.countries[node.country]) {
@@ -24,10 +25,8 @@ $(function () {
 				var country = mapData.countries[node.country];
 				var dx = country.x - node.x;
 				var dy = country.y - node.y;
-				var r = Math.sqrt(dx*dx + dy*dy);
-				if (r > 1.0) r = 1.0;
-				dx *= 0.2;
-				dy *= 0.2;
+				dx *= 2*alpha;
+				dy *= 2*alpha;
 				node.x = node.x + dx;
 				node.y = node.y + dy;
 				node.px = node.x;
@@ -47,29 +46,36 @@ function generateGraph(query) {
 	})
 
 	paths = paths.map(function (path) {
-		var newPath = [path[0]];
+		var count = path[0];
+		var newPath = [count];
 
 		for (var i = 1; i < path.length; i++) {
 			var id = path[i];
 
 			if (!nodes[id]) {
 				var asn = data.asns[id];
-				nodes[id] = {
-					country:asn.country,
-					x:Math.random(),
-					y:Math.random()
+				nodes[id] = asn;
+				if (!asn.x) {
+					asn.x = Math.random();
+					asn.y = Math.random();
 				}
+				asn.count = 0;
 			}
 
+			nodes[id].count += count;
+
 			newPath.push(nodes[id]);
-			if (i > 1) addEdge(path[i-1], id, path[0]);
+			if (i > 1) addEdge(path[i-1], id, count);
 		}
 
 		return newPath;
 	})
 
 	return {
-		nodes: Object.keys(nodes).map(function (key) { return nodes[key] }),
+		nodes: Object.keys(nodes).map(function (key) {
+			nodes[key].size = Math.sqrt(nodes[key].count)*0.3
+			return nodes[key];
+		}),
 		edges: Object.keys(edges).map(function (key) { return edges[key] }),
 		links: links,
 		paths: paths
@@ -82,7 +88,7 @@ function generateGraph(query) {
 			edges[key] = edge;
 			if (nodes[id1].country == nodes[id2].country) links.push(edge);
 		}
-		edges[key].strength += s/10;
+		edges[key].strength += s;
 	}
 }
 

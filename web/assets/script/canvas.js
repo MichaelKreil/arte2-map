@@ -76,24 +76,29 @@ function Canvas () {
 
 		if (!graph) return;
 
-		var r = 2;
 		var scale2 = scale / 1000;
 
 		ctx2.strokeStyle = 'rgba(170,170,170,0.1)';
-		ctx2.lineWidth = 1;
-		ctx2.beginPath();
+		
+		/*
 		graph.edges.forEach(function (edge) {
+			ctx2.beginPath();
+			ctx2.lineWidth = edge.strength*0.1;
 			ctx2.moveTo(edge.source.x*scale2 + x0, edge.source.y*scale2 + y0);
 			ctx2.lineTo(edge.target.x*scale2 + x0, edge.target.y*scale2 + y0);
+			ctx2.stroke();
 		})
-		ctx2.stroke();
+		*/
 
+		
 		ctx2.fillStyle = '#000';
 		graph.nodes.forEach(function (node) {
 			ctx2.beginPath();
+			var r = node.size * scale2;
 			ctx2.ellipse(node.x*scale2 + x0, node.y*scale2 + y0, r, r, 0, 0, Math.PI*2);
 			ctx2.fill();
 		})
+
 	}
 
 	function resize() {
