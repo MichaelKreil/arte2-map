@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>internet map</title>
+		
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="assets/style/main.css" />
+
+		<script src="assets/lib/jquery-1.11.2.min.js"></script>
+		<script src="assets/lib/d3.min.js"></script>
+
+		<script src="assets/script/main.js"></script>
+		<script src="assets/script/canvas.js"></script>
+	</head>
+	<body>
+		<div id="content">
+			<div id="sidebar">
+				<h1>Das Internet in Europa</h1>
+				<div>Wähle ein Land, um die Datenströme der ansässigen Provider zu sehen:</div>
+				<div id="country_wrapper">
+					<div id="btn_eu" class="country_button">Europa</div>
+					<div id="btn_de" class="country_button active">Deutschland</div>
+					<div id="btn_fr" class="country_button">Frankreich</div>
+					<div id="btn_ch" class="country_button">Schweiz</div>
+				</div>
+				<div id="description_wrapper">
+					<div id="text_eu" class="description">Europa ist prima. Im alltäglichen Sprachgebrauch werden die Begriffe Internet und World Wide Web (WWW) oftmals als Synonyme gebraucht: Das Internet ist das „weltweite Netz“, das „weltweite Netz“ ist identisch mit dem Internet. Doch zwischen dem Internet und dem WWW besteht technisch ein ganz erheblicher Unterschied. Das Internet ist vergleichbar mit der Verkehrsinfrastruktur: Das Internet ist das „weltweite Netz“.</div>
+					<div id="text_de" class="description active">Deutschland ist prima. Im alltäglichen Sprachgebrauch werden die Begriffe Internet und World Wide Web (WWW) oftmals als Synonyme gebraucht: Das Internet ist das „weltweite Netz“, das „weltweite Netz“ ist identisch mit dem Internet. Doch zwischen dem Internet und dem WWW besteht technisch ein ganz erheblicher Unterschied. Das Internet ist vergleichbar mit der Verkehrsinfrastruktur: Das Internet ist das „weltweite Netz“.</div>
+					<div id="text_fr" class="description">Frankreich ist prima. Im alltäglichen Sprachgebrauch werden die Begriffe Internet und World Wide Web (WWW) oftmals als Synonyme gebraucht: Das Internet ist das „weltweite Netz“, das „weltweite Netz“ ist identisch mit dem Internet. Doch zwischen dem Internet und dem WWW besteht technisch ein ganz erheblicher Unterschied. Das Internet ist vergleichbar mit der Verkehrsinfrastruktur: Das Internet ist das „weltweite Netz“.</div>
+					<div id="text_ch" class="description">Schweiz ist prima. Im alltäglichen Sprachgebrauch werden die Begriffe Internet und World Wide Web (WWW) oftmals als Synonyme gebraucht: Das Internet ist das „weltweite Netz“, das „weltweite Netz“ ist identisch mit dem Internet. Doch zwischen dem Internet und dem WWW besteht technisch ein ganz erheblicher Unterschied. Das Internet ist vergleichbar mit der Verkehrsinfrastruktur: Das Internet ist das „weltweite Netz“.</div>
+				</div>
+				<div id="footer">
+					Ein Projekt von:<br />
+					<span id="logo_arte"></span>
+					<span id="logo_srf"></span>
+					<span id="logo_rts"></span>
+					<span id="logo_odc"></span>
+				</div>
+			</div>
+			<div id="map">
+			</div>
+		</div>
+	</body>
+</html>
+
