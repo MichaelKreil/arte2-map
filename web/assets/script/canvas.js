@@ -104,10 +104,14 @@ function Canvas () {
 			var x = p1.x*(1-a) + a*p2.x;
 			var y = p1.y*(1-a) + a*p2.y;
 
-			if (p1.country == p2.country) {
-				ctx2.fillStyle = '#0A0';
+			if (graph.queryString == 'eu') {
+				ctx2.fillStyle = 'rgba(0,0,0,0.5)';
 			} else {
-				ctx2.fillStyle = '#C00';
+				if (p1.country == p2.country) {
+					ctx2.fillStyle = 'rgba(0,170,0,0.5)';
+				} else {
+					ctx2.fillStyle = 'rgba(200,0,0,0.5)';
+				}
 			}
 			var r = 0.7;
 

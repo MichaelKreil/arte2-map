@@ -23,8 +23,8 @@ $(function () {
 	var force = d3.layout.force()
 		.nodes(graph.nodes)
 		.links(graph.links)
-		.linkDistance(0)
-		.linkStrength(0.01)
+		.linkDistance(20)
+		.linkStrength(0.1)
 		.chargeDistance(80)
 		.charge(function (node) { return Math.pow(node.size, 1.5)*(-100) })
 		.gravity(0)
@@ -97,7 +97,8 @@ function generateGraph(query) {
 		}),
 		edges: Object.keys(edges).map(function (key) { return edges[key] }),
 		links: links,
-		paths: paths
+		paths: paths,
+		queryString: query.join(',')
 	}
 
 	function addEdge(id1, id2, s) {
