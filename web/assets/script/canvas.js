@@ -97,7 +97,7 @@ function Canvas () {
 	setInterval(redraw2, 40);
 	setInterval(function () {
 		packets.forEach(function (packet) {
-			packet.offset += 0.03;
+			packet.offset += 0.01;
 			if (packet.offset > packet.path.length-1) packet.offset -= packet.path.length-1;
 
 			var index = Math.floor(packet.offset);
@@ -112,6 +112,7 @@ function Canvas () {
 			packet.y0 = p1.y*(1-a0) + a0*p2.y;
 
 			packet.sameCountry = (p1.country == p2.country);
+			packet.inEu = (p1.country != 'US') && (p2.country != 'US');
 		})
 	}, 40);
 
@@ -199,21 +200,19 @@ function Canvas () {
 			*/
 
 			var alpha = Math.sqrt(sqr(p.x0 - p.x) + sqr(p.y0 - p.y))+1e-5;
-			alpha = 1/alpha;
-			if (alpha > 1) alpha = 1;
+			alpha = 3/alpha;
 			if (alpha < 0) alpha = 0;
+			if (alpha > 1) alpha = 1;
 
+			var blue = 'rgba(112,159,229,'+alpha+')';
+			var red = 'rgba(255,0,0,'+alpha+')';
 
 			if (graph.queryString == 'eu') {
-				ctx2.strokeStyle = 'rgba(0,0,0,'+alpha+')';
+				ctx2.strokeStyle = p.inEu ? blue : red;
 			} else {
-				if (p.sameCountry) {
-					ctx2.strokeStyle = 'rgba(0,170,0,'+alpha+')';
-				} else {
-					ctx2.strokeStyle = 'rgba(200,0,0,'+alpha+')';
-				}
+				ctx2.strokeStyle = p.sameCountry ? blue : red;
 			}
-			ctx2.lineWidth = 0.7;
+			ctx2.lineWidth = 1.5;
 
 			ctx2.beginPath();
 			ctx2.moveTo(p.x0*scale2 + x0, p.y0*scale2 + y0);

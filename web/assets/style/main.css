@@ -34,26 +34,36 @@ html, body, #content {
 			cursor: pointer;
 		}
 
+			.country_button::after {
+				content: ' ';
+				position: absolute;
+				top: 21px;
+				right: 0px;
+				width: 0px;
+				height: 0px;
+				border-top: 0px solid transparent;
+				border-bottom: 0px solid transparent;
+				border-left: 0px solid #7cb0ff;
+			        transition: border-width 0.1s, right 0.1s, top 0.1s;
+			-webkit-transition: border-width 0.1s, right 0.1s, top 0.1s;
+			}
+
 			.country_button:hover {
-				background: #BACFA2;
+				background: #B5C7E2;
 			}
 
 			.country_button.active, .country_button.active:hover {
 				position: relative;
 				z-index: 1000;
-				background: #8dc63f;
+				background: #7cb0ff;
 			}
 
 				.country_button.active::after {
-					content: ' ';
-					position: absolute;
 					top: 0px;
 					right: -21px;
-					width: 0px;
-					height: 0px;
-					border-top: 21px solid transparent;
-					border-bottom: 21px solid transparent;
-					border-left: 21px solid #8dc63f;
+					border-top-width: 21px;
+					border-bottom-width: 21px;
+					border-left-width: 21px;
 				}
 
 	.description {
@@ -156,6 +166,7 @@ html, body, #content {
 				margin-bottom: 3px;
 			}
 				.country_button.active::after {
+					top: 0px;
 					right: -20px;
 					border-top-width: 20px;
 					border-left-width: 20px;
