@@ -157,7 +157,7 @@ function Canvas () {
 			var r = 0.7;
 
 			ctx2.beginPath();
-			ctx2.ellipse(x*scale2 + x0, y*scale2 + y0, r, r, 0, 0, Math.PI*2);
+			circle(x*scale2 + x0, y*scale2 + y0, r);
 			ctx2.fill();
 		})
 
@@ -166,9 +166,14 @@ function Canvas () {
 		graph.nodes.forEach(function (node) {
 			ctx2.beginPath();
 			var r = node.size * scale2 + 1;
-			ctx2.ellipse(node.x*scale2 + x0, node.y*scale2 + y0, r, r, 0, 0, Math.PI*2);
+			circle(node.x*scale2 + x0, node.y*scale2 + y0, r);
 			ctx2.fill();
 		})
+
+		function circle(x,y,r) {
+			if (ctx2.ellipse) return ctx2.ellipse(x, y, r, r, 0, 0, Math.PI*2);
+			ctx2.arc(x, y, r, 0, Math.PI*2, false)
+		}
 	}
 
 	function resize() {
