@@ -8,11 +8,12 @@ function Canvas () {
 	var width, height, scale, x0, y0, graph;
 	var view = {dx:0,dy:0,zoom:1, initial:true};
 	var viewInterval = false;
+	var lastRedraw2 = 0;
 
 	initMap();
 	resize();
 	var packets = [];
-	var packetCount = 3000;
+	var packetCount = 2000;
 
 	$(window).resize(resize);
 
@@ -57,7 +58,7 @@ function Canvas () {
 			}
 			updateScale();
 			redraw1();
-			redraw2();
+			redraw2(true);
 		}, 40);
 	}
 
@@ -109,7 +110,11 @@ function Canvas () {
 		}
 	}
 
-	function redraw2() {
+	function redraw2(force) {
+		var now = (new Date()).getTime();
+		if (!force && (lastRedraw2 > now - 30)) return;
+		lastRedraw2 = now;
+
 		ctx2.clearRect(0,0,width,height);
 
 		if (!graph) return;
