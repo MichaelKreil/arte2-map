@@ -13038,7 +13038,7 @@ var data = {
 		{ "asn": 39608,"provider": "Lanet Network Ltd.", "country": "UA" },
 		{ "asn": 39737,"provider": "Net Vision Telecom SRL", "country": "RO" },
 		{ "asn": 39756,"provider": "EASYHOST SRL", "country": "RO" },
-		{ "asn": 41692,"provider": "OpenCarrier eG", "country": "PL" },
+		{ "asn": 41692,"provider": "OpenCarrier eG", "country": "DE" },
 		{ "asn": 42560,"provider": "Telemach d.o.o. Sarajevo", "country": "BA" },
 		{ "asn": 42652,"provider": "inexio", "country": "DE" },
 		{ "asn": 43142,"provider": "ADELI SAS", "country": "FR" },
