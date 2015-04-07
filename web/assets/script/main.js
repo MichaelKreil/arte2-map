@@ -26,12 +26,11 @@ $(function () {
 		.linkDistance(0)
 		.linkStrength(0.01)
 		.chargeDistance(80)
-		.charge(function (node) { return Math.pow(node.size, 1.5)*(-25) })
+		.charge(function (node) { return Math.pow(node.size, 1.5)*(-100) })
 		.gravity(0)
 		.start()
 		.on('tick', function () {
 			var alpha = force.alpha();
-			canvas.redraw();
 			graph.nodes.forEach(function (node) {
 				if (!mapData.countries[node.country]) {
 					//console.log(node.country)
@@ -63,7 +62,7 @@ function generateGraph(query) {
 
 	paths = paths.map(function (path) {
 		var count = path[0];
-		var newPath = [count];
+		var newPath = [];
 		sum += count;
 
 		for (var i = 1; i < path.length; i++) {

@@ -21,15 +21,25 @@ function Canvas () {
 
 	initMap();
 	resize();
+	var packets = [];
+	var packetCount = 3000;
 
 	$(window).resize(resize);
 
 	me.setGraph = function (_graph) {
 		graph = _graph;
-		redraw2();
+		packets = [];
+		for (var i = 0; i < packetCount; i++) {
+			var index = Math.floor(graph.paths.length*i/(packetCount+1));
+			var path = graph.paths[index];
+			packets.push({
+				path: path,
+				offset: Math.random()*(path.length-1)
+			})
+		}
 	}
 
-	me.redraw = redraw2;
+	setInterval(redraw2, 40);
 
 	return me;
 
@@ -41,7 +51,7 @@ function Canvas () {
 
 	function redraw1() {
 		ctx1.fillStyle = '#f0eeec';
-		ctx1.fillRect(0,0,width,height);
+		ctx1.fillRect(0, 0, width, height);
 
 		ctx1.strokeStyle = '#f0eeec';
 		ctx1.lineWidth = 2;
@@ -89,6 +99,34 @@ function Canvas () {
 			ctx2.stroke();
 		})
 		*/
+		
+		
+		packets.forEach(function (packet) {
+			packet.offset += 0.03;
+			
+			if (packet.offset > packet.path.length-1) packet.offset -= packet.path.length-1;
+
+			var index = Math.floor(packet.offset);
+			var a = packet.offset - index;
+			var p1 = packet.path[index];
+			var p2 = packet.path[index+1];
+
+			if (!p1 || !p2) debugger;
+
+			var x = p1.x*(1-a) + a*p2.x;
+			var y = p1.y*(1-a) + a*p2.y;
+
+			if (p1.country == p2.country) {
+				ctx2.fillStyle = '#0A0';
+			} else {
+				ctx2.fillStyle = '#C00';
+			}
+			var r = 0.7;
+
+			ctx2.beginPath();
+			ctx2.ellipse(x*scale2 + x0, y*scale2 + y0, r, r, 0, 0, Math.PI*2);
+			ctx2.fill();
+		})
 
 		
 		ctx2.fillStyle = '#000';
@@ -98,7 +136,6 @@ function Canvas () {
 			ctx2.ellipse(node.x*scale2 + x0, node.y*scale2 + y0, r, r, 0, 0, Math.PI*2);
 			ctx2.fill();
 		})
-
 	}
 
 	function resize() {
