@@ -6,18 +6,6 @@ function Canvas () {
 	var ctx1 = canvas1.get(0).getContext('2d');
 	var ctx2 = canvas2.get(0).getContext('2d');
 	var width, height, scale, x0, y0, graph;
-	var ccount;
-
-	canvas2.on('mousedown', function (e) {
-		var x = e.offsetX;
-		var y = e.offsetY;
-		console.log(e);
-		var img = ctx1.getImageData(x,y,1,1);
-		if ((img.data[0] == img.data[1]) && (img.data[0] == img.data[2])) {
-			var result = [img.data[0]+3];
-			alert(result.join(','));
-		}
-	})
 
 	initMap();
 	resize();
@@ -149,7 +137,6 @@ function Canvas () {
 	}
 
 	function initMap() {
-		ccount = Object.keys(mapData.countries).length;
 		Object.keys(mapData.countries).forEach(function (key) {
 			var country = mapData.countries[key];
 			mapData.all.unshift(country);
