@@ -99,6 +99,19 @@ function Canvas () {
 		packets.forEach(function (packet) {
 			packet.offset += 0.03;
 			if (packet.offset > packet.path.length-1) packet.offset -= packet.path.length-1;
+
+			var index = Math.floor(packet.offset);
+			var a = packet.offset - index;
+			var a0 = Math.max(0, a-0.01);
+			var p1 = packet.path[index];
+			var p2 = packet.path[index+1];
+
+			packet.x  = p1.x*(1-a ) + a*p2.x;
+			packet.y  = p1.y*(1-a ) + a*p2.y;
+			packet.x0 = p1.x*(1-a0) + a0*p2.x;
+			packet.y0 = p1.y*(1-a0) + a0*p2.y;
+
+			packet.sameCountry = (p1.country == p2.country);
 		})
 	}, 40);
 
@@ -166,16 +179,8 @@ function Canvas () {
 		*/
 		
 		
-		packets.forEach(function (packet) {
-			var index = Math.floor(packet.offset);
-			var a = packet.offset - index;
-			var p1 = packet.path[index];
-			var p2 = packet.path[index+1];
-
-			if (!p1 || !p2) debugger;
-
-			var x = p1.x*(1-a) + a*p2.x;
-			var y = p1.y*(1-a) + a*p2.y;
+		packets.forEach(function (p) {
+			/*
 
 			if (graph.queryString == 'eu') {
 				ctx2.fillStyle = 'rgba(0,0,0,0.5)';
@@ -189,8 +194,31 @@ function Canvas () {
 			var r = 0.7;
 
 			ctx2.beginPath();
-			circle(x*scale2 + x0, y*scale2 + y0, r);
+			circle(p.x*scale2 + x0, p.y*scale2 + y0, r);
 			ctx2.fill();
+			*/
+
+			var alpha = Math.sqrt(sqr(p.x0 - p.x) + sqr(p.y0 - p.y))+1e-5;
+			alpha = 1/alpha;
+			if (alpha > 1) alpha = 1;
+			if (alpha < 0) alpha = 0;
+
+
+			if (graph.queryString == 'eu') {
+				ctx2.strokeStyle = 'rgba(0,0,0,'+alpha+')';
+			} else {
+				if (p.sameCountry) {
+					ctx2.strokeStyle = 'rgba(0,170,0,'+alpha+')';
+				} else {
+					ctx2.strokeStyle = 'rgba(200,0,0,'+alpha+')';
+				}
+			}
+			ctx2.lineWidth = 0.7;
+
+			ctx2.beginPath();
+			ctx2.moveTo(p.x0*scale2 + x0, p.y0*scale2 + y0);
+			ctx2.lineTo(p.x*scale2 + x0, p.y*scale2 + y0);
+			ctx2.stroke();
 		})
 
 		
