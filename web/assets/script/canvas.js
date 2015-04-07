@@ -9,13 +9,35 @@ function Canvas () {
 	var view = {dx:0,dy:0,zoom:1, initial:true};
 	var viewInterval = false;
 	var lastRedraw2 = 0;
+	var packets = [];
+	var packetCount = 2000;
+	var clickObjects = [];
+	var popup = $('#popup');
 
 	initMap();
 	resize();
-	var packets = [];
-	var packetCount = 2000;
 
 	$(window).resize(resize);
+
+	canvas2.on('mousemove', function (e) {
+		var x = e.offsetX;
+		var y = e.offsetY;
+		var node = false;
+		var minDistance = 1e10;
+
+		clickObjects.forEach(function (obj) {
+			var d = Math.sqrt(sqr(obj.x-x) + sqr(obj.y-y));
+			if ((d < obj.r+5) && (d < minDistance)) {
+				minDistance = d;
+				node = obj;
+			}
+		})
+		if (node) {
+			showPopup(node);
+		} else {
+			hidePopup();
+		}
+	})
 
 	me.setGraph = function (_graph) {
 		graph = _graph;
@@ -163,11 +185,22 @@ function Canvas () {
 
 		
 		ctx2.fillStyle = '#000';
+		clickObjects = [];
 		graph.nodes.forEach(function (node) {
-			ctx2.beginPath();
 			var r = node.size * scale2 + 1;
-			circle(node.x*scale2 + x0, node.y*scale2 + y0, r);
+			var x = node.x*scale2 + x0;
+			var y = node.y*scale2 + y0
+			
+			ctx2.beginPath();
+			circle(x, y, r);
 			ctx2.fill();
+
+			clickObjects.push({
+				x:x,
+				y:y,
+				r:r,
+				node:node
+			})
 		})
 
 		function circle(x,y,r) {
@@ -222,5 +255,22 @@ function Canvas () {
 				p[1] = (p[1]-dy)/scale;
 			})
 		}
+	}
+
+	function sqr(v) {
+		return v*v;
+	}
+
+	function showPopup(node) {
+		popup.show();
+		popup.css({
+			left:Math.round(node.x+node.r+13),
+			top:Math.round(node.y-10)
+		});
+		popup.find('span').text(node.node.provider);
+	}
+
+	function hidePopup() {
+		popup.hide();
 	}
 }
