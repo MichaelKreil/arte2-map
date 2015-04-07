@@ -18,142 +18,138 @@ html, body, #content {
 #sidebar {
 	background: #eae8e6;
 	padding: 20px;
+	width: 240px;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
 }
+
+	h1 {
+		font-weight: normal;
+		font-size: 30px;
+		line-height: 1.2em;
+		margin: 0 0 20px 0;
+	}
+
+	#country_wrapper {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+		.country_button {
+			background: #d1d3d4;
+			font-weight: bold;
+			padding: 12px 0px 0px 20px;
+			height: 30px;
+			width: 240px;
+			border: 3px solid rgba(234,232,230,1);
+			border-left: none;
+			border-right: none;
+			        transition: background-color 0.1s;
+			-webkit-transition: background-color 0.1s;
+			cursor: pointer;
+		}
+
+			.country_button:hover {
+				background: #BACFA2;
+			}
+
+			.country_button.active, .country_button.active:hover {
+				position: relative;
+				z-index: 1000;
+				background: #8dc63f;
+			}
+
+				.country_button.active::after {
+					content: ' ';
+					position: absolute;
+					top: 0px;
+					right: -21px;
+					width: 0px;
+					height: 0px;
+					border-top: 21px solid transparent;
+					border-bottom: 21px solid transparent;
+					border-left: 21px solid #8dc63f;
+				}
+
+	.description {
+		display: none;
+	}
+
+		.description.active {
+			display: block;
+		}
+
+	#footer {
+		position: absolute;
+		width: 240px;
+		bottom: 20px;
+		left: 20px;
+	}
+
+		#footer span {
+			vertical-align: top;
+			display: inline-block;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: top left;
+			height: 20px;
+			margin-top: 5px;
+		}
+
+			#logo_arte { background-image: url('arte.png'); width: 82px; }
+			#logo_srf  { background-image: url('srf.png');  width: 31px; margin-left: 5px; }
+			#logo_rts  { background-image: url('rts.png');  width: 30px; margin-left: 5px; }
+			#logo_odc  { background-image: url('odc.png');  width: 51px; margin-left: 5px; }
 
 #map {
 	background: #f0eeec;
 	border-left: 1px solid #939598;
 	z-index: 100;
 	overflow: hidden;
-}
-
-#map canvas {
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-
-h1 {
-	font-weight: normal;
-	font-size: 30px;
-	line-height: 1.2em;
-	margin: 0 0 20px 0;
-}
-
-#country_wrapper {
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-
-.country_button {
-	background: #d1d3d4;
-	font-weight: bold;
-	padding: 12px 0px 0px 20px;
-	height: 30px;
-	width: 240px;
-	border: 3px solid rgba(234,232,230,1);
-	border-left: none;
-	border-right: none;
-	        transition: background-color 0.1s;
-	-webkit-transition: background-color 0.1s;
-	cursor: pointer;
-}
-
-.country_button:hover {
-	background: #BACFA2;
-}
-
-.country_button.active, .country_button.active:hover {
-	position: relative;
-	z-index: 1000;
-	background: #8dc63f;
-}
-
-.country_button.active::after {
-	content: ' ';
-	position: absolute;
-	top: 0px;
-	right: -21px;
-	width: 0px;
-	height: 0px;
-	border-top: 21px solid transparent;
-	border-bottom: 21px solid transparent;
-	border-left: 21px solid #8dc63f;
-}
-
-.description {
-	display: none;
-}
-
-.description.active {
-	display: block;
-}
-
-#footer {
-	position: absolute;
-	width: 240px;
-	bottom: 20px;
-	left: 20px;
-}
-#footer span {
-	vertical-align: top;
-	display: inline-block;
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: top left;
-	height: 20px;
-	margin-top: 5px;
-}
-
-#logo_arte { background-image: url('arte.png'); width: 82px; }
-#logo_srf  { background-image: url('srf.png');  width: 31px; margin-left: 5px; }
-#logo_rts  { background-image: url('rts.png');  width: 30px; margin-left: 5px; }
-#logo_odc  { background-image: url('odc.png');  width: 51px; margin-left: 5px; }
-
-#sidebar {
-	width: 240px;
-	top: 0px;
-	left: 0px;
-	bottom: 0px;
-}
-#map {
 	top: 0px;
 	left: 280px;
 	bottom: 0px;
 	right: 0px;
 }
 
-#popup {
-	position: absolute;
-	display: none;
-	background: #000;
-	padding-top: 3px;
-	padding-right: 5px;
-	height: 17px;
-	color: #fff;
-	font-size: 10.5px;
-	pointer-events: none;
-}
+	#map canvas {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
 
-#popup span {
-	display: inline-block;
-	text-overflow: ellipsis;
-	max-width: 150px;
-	white-space: nowrap;
-	overflow: hidden;
-}
+	#popup {
+		position: absolute;
+		display: none;
+		background: #000;
+		padding-top: 3px;
+		padding-right: 5px;
+		height: 17px;
+		color: #fff;
+		font-size: 10.5px;
+		pointer-events: none;
+	}
 
-#popup::before {
-	content: ' ';
-	position: absolute;
-	top: 0px;
-	left: -10px;
-	width: 0px;
-	height: 0px;
-	border-top: 10px solid transparent;
-	border-bottom: 10px solid transparent;
-	border-right: 10px solid #000;
-}
+		#popup span {
+			display: inline-block;
+			text-overflow: ellipsis;
+			max-width: 150px;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		#popup::before {
+			content: ' ';
+			position: absolute;
+			top: 0px;
+			left: -10px;
+			width: 0px;
+			height: 0px;
+			border-top: 10px solid transparent;
+			border-bottom: 10px solid transparent;
+			border-right: 10px solid #000;
+		}
 
 @media (max-width: 800px) {
 }
