@@ -17,11 +17,6 @@ html, body, #content {
 
 #sidebar {
 	background: #eae8e6;
-	padding: 20px;
-	width: 240px;
-	top: 0px;
-	left: 0px;
-	bottom: 0px;
 }
 
 	h1 {
@@ -31,20 +26,9 @@ html, body, #content {
 		margin: 0 0 20px 0;
 	}
 
-	#country_wrapper {
-		margin-top: 10px;
-		margin-bottom: 10px;
-	}
-
 		.country_button {
 			background: #d1d3d4;
 			font-weight: bold;
-			padding: 12px 0px 0px 20px;
-			height: 30px;
-			width: 240px;
-			border: 3px solid rgba(234,232,230,1);
-			border-left: none;
-			border-right: none;
 			        transition: background-color 0.1s;
 			-webkit-transition: background-color 0.1s;
 			cursor: pointer;
@@ -104,13 +88,8 @@ html, body, #content {
 
 #map {
 	background: #f0eeec;
-	border-left: 1px solid #939598;
 	z-index: 100;
 	overflow: hidden;
-	top: 0px;
-	left: 280px;
-	bottom: 0px;
-	right: 0px;
 }
 
 	#map canvas {
@@ -151,8 +130,79 @@ html, body, #content {
 			border-right: 10px solid #000;
 		}
 
-@media (max-width: 800px) {
+@media (max-width: 650px) {
+	#sidebar {
+		top: 0px;
+		left: 0px;
+		right: 0px;
+		height: 210px;
+		padding: 0px;
+	}
+		h1, #footer {
+			display: none;
+		}
+		#intro {
+			padding: 10px;
+			border-bottom: 1px solid #939598;
+			height: 20px;
+		}
+		#country_wrapper {
+			margin: 0px;
+		}
+			.country_button {
+				padding: 10px 0px 0px 15px;
+				height: 30px;
+				width: 100px;
+				margin-bottom: 3px;
+			}
+				.country_button.active::after {
+					right: -20px;
+					border-top-width: 20px;
+					border-left-width: 20px;
+					border-bottom-width: 20px;
+				}
+		#description_wrapper {
+			position: absolute;
+			top: 41px;
+			left: 120px;
+			right: 0px;
+			bottom: 0px;
+			padding: 10px 10px 10px 20px;
+		}
+	#map {
+		top: 210px;
+		left: 0px;
+		bottom: 0px;
+		right: 0px;
+		border-top: 1px solid #939598;
+	}
 }
 
-@media (min-width: 801px) {
+@media (min-width: 651px) {
+	#sidebar {
+		width: 240px;
+		top: 0px;
+		left: 0px;
+		bottom: 0px;
+		padding: 20px;
+	}
+		#country_wrapper {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+			.country_button {
+				padding: 12px 0px 0px 20px;
+				height: 30px;
+				width: 240px;
+				border: 3px solid rgba(234,232,230,1);
+				border-left: none;
+				border-right: none;
+			}
+	#map {
+		top: 0px;
+		left: 280px;
+		bottom: 0px;
+		right: 0px;
+		border-left: 1px solid #939598;
+	}
 }
