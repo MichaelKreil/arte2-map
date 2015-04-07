@@ -37,7 +37,7 @@ html, body, #content {
 			.country_button::after {
 				content: ' ';
 				position: absolute;
-				top: 21px;
+				top: 20px;
 				right: 0px;
 				width: 0px;
 				height: 0px;
@@ -60,10 +60,10 @@ html, body, #content {
 
 				.country_button.active::after {
 					top: 0px;
-					right: -21px;
-					border-top-width: 21px;
-					border-bottom-width: 21px;
-					border-left-width: 21px;
+					right: -18px;
+					border-top-width: 18px;
+					border-bottom-width: 18px;
+					border-left-width: 18px;
 				}
 
 	.description {
@@ -202,7 +202,7 @@ html, body, #content {
 			left: 120px;
 			right: 0px;
 			bottom: 0px;
-			padding: 10px 10px 10px 20px;
+			padding: 5px 10px 5px 20px;
 		}
 	#map {
 		top: 210px;
@@ -226,13 +226,16 @@ html, body, #content {
 			margin-bottom: 10px;
 		}
 			.country_button {
-				padding: 12px 0px 0px 20px;
-				height: 30px;
+				padding: 8px 0px 0px 20px;
+				height: 28px;
 				width: 240px;
-				border: 3px solid rgba(234,232,230,1);
+				border: 2px solid rgba(234,232,230,1);
 				border-left: none;
 				border-right: none;
 			}
+		.description {
+			font-size: 12px;
+		}
 	#map {
 		top: 0px;
 		left: 280px;
