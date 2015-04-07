@@ -1,12 +1,18 @@
+var can;
+
 $(function () {
 	initData();
 
 	var canvas = new Canvas();
-	var graph = generateGraph(['eu']);
-	canvas.setGraph(graph);
+	var graph;
+	can = canvas;
 
 	$('.country_button').click(function (e) {
 		var country = $(this).attr('country');
+		setView(country);
+	})
+
+	function setView(country) {
 		$('.country_button').removeClass('active');
 		$('.description').removeClass('active');
 		$('#btn_'+country).addClass('active');
@@ -18,17 +24,21 @@ $(function () {
 		force.nodes(graph.nodes).links(graph.links);
 		force.start();
 		canvas.setGraph(graph);
-	})
+
+		switch (country) {
+			case 'eu': canvas.setView({dx:0,dy:0,zoom:1}); break;
+			case 'de': canvas.setView({dx:0.03,dy:-0.02,zoom:2}); break;
+			case 'fr': canvas.setView({dx:0.15,dy:-0.12,zoom:2}); break;
+			case 'ch': canvas.setView({dx:0.06,dy:-0.12,zoom:3}); break;
+		}
+	}
 
 	var force = d3.layout.force()
-		.nodes(graph.nodes)
-		.links(graph.links)
 		.linkDistance(20)
 		.linkStrength(0.1)
 		.chargeDistance(80)
 		.charge(function (node) { return Math.pow(node.size, 1.5)*(-100) })
 		.gravity(0)
-		.start()
 		.on('tick', function () {
 			var alpha = force.alpha();
 			graph.nodes.forEach(function (node) {
@@ -47,6 +57,8 @@ $(function () {
 				node.py = node.y;
 			})
 		})
+
+	setView('eu');
 })
 
 function generateGraph(query) {

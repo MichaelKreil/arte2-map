@@ -6,6 +6,8 @@ function Canvas () {
 	var ctx1 = canvas1.get(0).getContext('2d');
 	var ctx2 = canvas2.get(0).getContext('2d');
 	var width, height, scale, x0, y0, graph;
+	var view = {dx:0,dy:0,zoom:1, initial:true};
+	var viewInterval = false;
 
 	initMap();
 	resize();
@@ -27,14 +29,52 @@ function Canvas () {
 		}
 	}
 
+	me.setView = function (_view) {
+		if (view.initial) {
+			view = _view;
+			updateScale();
+			redraw1();
+			redraw2();
+			return;
+		}
+		if (viewInterval) clearInterval(viewInterval);
+		var t0 = (new Date()).getTime();
+		var duration = 2000;
+		var view0 = view;
+		viewInterval = setInterval(function () {
+			var t = (new Date()).getTime();
+			var a = (t-t0)/duration;
+			if (a > 1) {
+				a = 1;
+				clearInterval(viewInterval);
+				viewInterval = false;
+			}
+			a = 0.5-Math.cos(Math.PI*a)/2;
+			view = {
+				dx: view0.dx*(1-a) + a*_view.dx,
+				dy: view0.dy*(1-a) + a*_view.dy,
+				zoom: Math.exp(Math.log(view0.zoom)*(1-a) + a*Math.log(_view.zoom))
+			}
+			updateScale();
+			redraw1();
+			redraw2();
+		}, 40);
+	}
+
 	setInterval(redraw2, 40);
+	setInterval(function () {
+		packets.forEach(function (packet) {
+			packet.offset += 0.03;
+			if (packet.offset > packet.path.length-1) packet.offset -= packet.path.length-1;
+		})
+	}, 40);
 
 	return me;
 
 	function updateScale() {
-		scale = Math.max(width, height);
-		x0 = width/2;
-		y0 = height/2;
+		scale = Math.max(width, height)*view.zoom;
+		x0 = view.dx*scale + width/2;
+		y0 = view.dy*scale + height/2;
 	}
 
 	function redraw1() {
@@ -90,10 +130,6 @@ function Canvas () {
 		
 		
 		packets.forEach(function (packet) {
-			packet.offset += 0.03;
-			
-			if (packet.offset > packet.path.length-1) packet.offset -= packet.path.length-1;
-
 			var index = Math.floor(packet.offset);
 			var a = packet.offset - index;
 			var p1 = packet.path[index];
