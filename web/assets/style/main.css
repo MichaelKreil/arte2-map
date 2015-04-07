@@ -108,6 +108,21 @@ html, body, #content {
 		left: 0;
 	}
 
+	#btn_fullscreen {
+		position: absolute;
+		bottom: 16px;
+		right: 16px;
+		width: 34px;
+		height: 34px;
+		background-image: url('btnfullscreen.png');
+		background-size: 98px 34px;
+		background-position: top right;
+	}
+
+		#btn_fullscreen.active {
+			background-position: top left;
+		}
+
 	#popup {
 		position: absolute;
 		display: none;

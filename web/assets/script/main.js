@@ -1,15 +1,30 @@
-var can;
 
 $(function () {
 	initData();
 
 	var canvas = new Canvas();
 	var graph;
-	can = canvas;
+	var fullscreen = new Fullscreen();
 
 	$('.country_button').click(function (e) {
 		var country = $(this).attr('country');
 		setView(country);
+	})
+
+	$('#btn_fullscreen').click(function (e) {
+		if (!fullscreen) return;
+
+		var isFullscreen = $('#btn_fullscreen').hasClass('active');
+		isFullscreen = !isFullscreen;
+
+		if (isFullscreen) {
+			$('#btn_fullscreen').addClass('active');
+			$('#content').get(0)[fullscreen.request]();
+			//fullscreen.request();
+		} else {
+			$('#btn_fullscreen').removeClass('active');
+			document[fullscreen.exit]();
+		}
 	})
 
 	function setView(country) {
@@ -124,11 +139,44 @@ function generateGraph(query) {
 	}
 }
 
-
 function initData() {
 	var asns = {};
 	data.asns.forEach(function (provider) {
 		asns[provider.asn] = provider;
 	})
 	data.asns = asns;
+}
+
+function Fullscreen() {
+	var fullscreen = false;
+
+	if (document.fullscreenEnabled) {
+		fullscreen = {
+			request: 'requestFullscreen',
+			element: 'fullscreenElement',
+			exit: 'exitFullscreen'
+		}
+	} else if (document.msFullscreenEnabled) {
+		fullscreen = {
+			request: 'msRequestFullscreen',
+			element: 'msFullscreenElement',
+			exit: 'msExitFullscreen'
+		}
+	} else if (document.mozFullScreenEnabled) {
+		fullscreen = {
+			request: 'mozRequestFullScreen',
+			element: 'mozFullScreenElement',
+			exit: 'mozCancelFullScreen'
+		}
+	} else if (document.webkitFullscreenEnabled) {
+		fullscreen = {
+			request: 'webkitRequestFullscreen',
+			element: 'webkitFullscreenElement',
+			exit: 'webkitExitFullscreen'
+		}
+	}
+
+	console.log(fullscreen)
+
+	return fullscreen;
 }
