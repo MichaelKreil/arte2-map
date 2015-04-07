@@ -42,9 +42,19 @@ function Canvas () {
 	me.setGraph = function (_graph) {
 		graph = _graph;
 		packets = [];
+
+		var paths = [];
+		graph.paths.forEach(function (entry) {
+			for (var i = 0; i < entry.count; i++) paths.push(entry.path);
+		})
+		paths.sort(function (a,b) {
+			return Math.random()-0.5;
+		})
+
+		var index = 0
 		for (var i = 0; i < packetCount; i++) {
-			var index = Math.floor(graph.paths.length*i/(packetCount+1));
-			var path = graph.paths[index];
+			index = (index+1) % paths.length;
+			var path = paths[index];
 			packets.push({
 				path: path,
 				offset: Math.random()*(path.length-1)

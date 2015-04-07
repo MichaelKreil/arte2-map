@@ -97,7 +97,7 @@ function generateGraph(query) {
 			if (i > 1) addEdge(path[i-1], id, count);
 		}
 
-		return newPath;
+		return {count:count, path:newPath}
 	})
 
 	sum /= paths.length;
