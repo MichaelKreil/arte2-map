@@ -61,7 +61,6 @@ $(function () {
 			var alpha = force.alpha();
 			graph.nodes.forEach(function (node) {
 				if (!mapData.countries[node.country]) {
-					//console.log(node.country)
 					return;
 				}
 				var country = mapData.countries[node.country];
@@ -178,8 +177,6 @@ function Fullscreen() {
 			exit: 'webkitExitFullscreen'
 		}
 	}
-
-	console.log(fullscreen)
 
 	return fullscreen;
 }
