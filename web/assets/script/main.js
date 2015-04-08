@@ -44,10 +44,10 @@ $(function () {
 		canvas.setGraph(graph);
 
 		switch (country) {
-			case 'eu': canvas.setView({dx:0,dy:0,zoom:1}); break;
-			case 'de': canvas.setView({dx:0.1,dy:-0.00,zoom:1.2}); break;
-			case 'fr': canvas.setView({dx:0.15,dy:-0.08,zoom:2}); break;
-			case 'ch': canvas.setView({dx:0.10,dy:-0.05,zoom:2.5}); break;
+			case 'eu': canvas.setView({dx:-0.03, dy: 0.00, zoom:1.0}); break;
+			case 'de': canvas.setView({dx: 0.10, dy: 0.00, zoom:1.2}); break;
+			case 'fr': canvas.setView({dx: 0.12, dy:-0.06, zoom:2.0}); break;
+			case 'ch': canvas.setView({dx: 0.10, dy:-0.05, zoom:2.5}); break;
 		}
 	}
 
