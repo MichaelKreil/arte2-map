@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>The internet in Europe</title>
+		
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="assets/style/main.css" />
+
+		<script src="assets/lib/jquery-1.11.2.min.js"></script>
+		<script src="assets/lib/d3.min.js"></script>
+
+		<script src="assets/data/data.js"></script>
+		<script src="assets/data/map.js"></script>
+		<script src="assets/script/main.js"></script>
+		<script src="assets/script/canvas.js"></script>
+	</head>
+	<body>
+		<div id="content">
+			<div id="sidebar">
+				<h1>The internet in Europe</h1>
+				<div id="intro">Choose a country to see the internet traffic between local providers:</div>
+				<div id="country_wrapper" class="noselect">
+					<div id="btn_eu" country="eu" class="country_button active">Europe</div>
+					<div id="btn_de" country="de" class="country_button">Germany</div>
+					<div id="btn_fr" country="fr" class="country_button">France</div>
+					<div id="btn_ch" country="ch" class="country_button">Switzerland</div>
+				</div>
+				<div id="description_wrapper">
+					<div id="text_eu" class="description active"><!-- Das europäische Internet wird nicht von einem Anbieter allein betrieben, sondern ist eine Kooperation tausender Anbieter, die ihre Netzwerke miteinander verbinden. Die Datenpakete reisen von einem Netz zum nächsten, bis sie ihr Ziel erreichen. Auch wenn Start und Ziel in Europa liegen, verlassen zahlreiche Datenpakete die europäischen Grenzen und unternehmen beispielsweise einen „Umweg“ über die USA. --></div>
+					<div id="text_de" class="description"><!-- Der Internetverkehr innerhalb von Deutschland, sollte eigentlich auch innerhalb von Deutschland bleiben. Unsere Messungen mit der Hilfe von RIPE Atlas zeigen jedoch, dass die Daten immer wieder das Land verlassen, und Umwege über Großbritannien, Schweden, Spanien oder sogar die USA nehmen müssen. Die Recherchen führten zu dem Ergebnis, dass die Deutsche Telekom als einer der grössten deutschen Betreiber den Datenverkehr oft über das Ausland leitet. --></div>
+					<div id="text_fr" class="description"><!-- Die französischen Netzbetreiber kooperieren innerhalb der nationalen Grenzen und nutzen die eigene Infrastruktur zum Datenaustausch. Dieser Datenaustausch wird als Peering bezeichnet und in entsprechenden Verträgen zwischen den Anbietern geregelt. Darüber hinaus gibt es zusätzliche große Peering-Stellen, wie der DE-CIX in Frankfurt, SwissIX in Zürich und PARIX in Paris. --></div>
+					<div id="text_ch" class="description"><!-- Die Anbieter auf dem Schweizer Markt arbeiten zusammen. Reissaus wird nach Grossbritannien genommen via der Infrastruktur des weltweit tätigen Konzerns Liberty Global. Die Schweizer Tochterunternehmung heisst UPC Cablecom. Nur: Eine E-Mail, die von Zürich aus nach Genf versendet wird, kann als Datenpaket auch über das ausländische Anbieter geleitet werden, sollten beide Adressen nicht beim gleichen Schweizer Anbieter registriert sein. --></div>
+				</div>
+				<div id="footer">
+					A project by:<br />
+					<span id="logo_arte"></span>
+					<span id="logo_srf"></span>
+					<span id="logo_rts"></span>
+					<span id="logo_odc"></span>
+				</div>
+			</div>
+			<div id="map" class="noselect">
+				<canvas id="canvas1"></canvas>
+				<canvas id="canvas2"></canvas>
+				<div id="btn_fullscreen"></div>
+				<div id="legend">
+					<table>
+						<tr><td colspan="2"><!-- Internetverkehr zwischen den Anbietern der gewählten Region: --></td></tr>
+						<tr><td><span class="line" style="border-color:rgb(112,159,229)"></td><td><!-- der innerhalb der Region bleibt, --></td></tr>
+						<tr><td><span class="line" style="border-color:rgb(255,0,0)"></td><td><!-- der die Region verlässt und abgehört werden kann. --></td></tr>
+					</table>
+				</div>
+				<div id="popup"><span></span></div>
+			</div>
+		</div>
+	</body>
+</html>
+
