@@ -20,7 +20,6 @@ $(function () {
 			if (isFullscreen) {
 				$('#btn_fullscreen').addClass('active');
 				$('#content').get(0)[fullscreen.request]();
-				//fullscreen.request();
 			} else {
 				$('#btn_fullscreen').removeClass('active');
 				document[fullscreen.exit]();
@@ -47,7 +46,7 @@ $(function () {
 			case 'eu': canvas.setView({dx:-0.03, dy: 0.00, zoom:1.0}); break;
 			case 'de': canvas.setView({dx: 0.10, dy: 0.00, zoom:1.2}); break;
 			case 'fr': canvas.setView({dx: 0.12, dy:-0.06, zoom:2.0}); break;
-			case 'ch': canvas.setView({dx: 0.10, dy:-0.05, zoom:2.5}); break;
+			case 'ch': canvas.setView({dx: 0.10, dy:-0.04, zoom:2.5}); break;
 		}
 	}
 

@@ -169,35 +169,7 @@ function Canvas () {
 
 		ctx2.strokeStyle = 'rgba(170,170,170,0.1)';
 		
-		/*
-		graph.edges.forEach(function (edge) {
-			ctx2.beginPath();
-			ctx2.lineWidth = edge.strength*0.1;
-			ctx2.moveTo(edge.source.x*scale2 + x0, edge.source.y*scale2 + y0);
-			ctx2.lineTo(edge.target.x*scale2 + x0, edge.target.y*scale2 + y0);
-			ctx2.stroke();
-		})
-		*/
-		
-		
 		packets.forEach(function (p) {
-			/*
-
-			if (graph.queryString == 'eu') {
-				ctx2.fillStyle = 'rgba(0,0,0,0.5)';
-			} else {
-				if (p1.country == p2.country) {
-					ctx2.fillStyle = 'rgba(0,170,0,0.5)';
-				} else {
-					ctx2.fillStyle = 'rgba(200,0,0,0.5)';
-				}
-			}
-			var r = 0.7;
-
-			ctx2.beginPath();
-			circle(p.x*scale2 + x0, p.y*scale2 + y0, r);
-			ctx2.fill();
-			*/
 
 			var alpha = Math.sqrt(sqr(p.x0 - p.x) + sqr(p.y0 - p.y))+1e-5;
 			alpha = 3/alpha;
