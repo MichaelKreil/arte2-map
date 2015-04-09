@@ -5,7 +5,7 @@ function Canvas () {
 	var canvas2 = $('#canvas2');
 	var ctx1 = canvas1.get(0).getContext('2d');
 	var ctx2 = canvas2.get(0).getContext('2d');
-	var width, height, scale, x0, y0, graph;
+	var width, height, scale, x0, y0, graph, lineWidth;
 	var view = {dx:0,dy:0,zoom:1, initial:true};
 	var viewInterval = false;
 	var lastRedraw2 = 0;
@@ -150,6 +150,7 @@ function Canvas () {
 		scale = Math.max(width, height)*view.zoom;
 		x0 = view.dx*scale + width/2;
 		y0 = view.dy*scale + height/2;
+		lineWidth = Math.max(0.9, scale/1200);
 	}
 
 	function redraw1() {
@@ -158,7 +159,7 @@ function Canvas () {
 		ctx1.fillRect(0, 0, width, height);
 
 		ctx1.strokeStyle = '#f0eeec';
-		ctx1.lineWidth = 2;
+		ctx1.lineWidth = lineWidth*2;
 
 		ctx1.beginPath();
 		mapData.all.forEach(drawPolygon);
@@ -258,6 +259,8 @@ function Canvas () {
 			ctx2.fill();
 		}
 		
+		ctx2.lineWidth = 1.5*lineWidth;
+
 		packets.forEach(function (p) {
 
 			var blue = 'rgba(124,176,255,0.5)';
@@ -268,7 +271,6 @@ function Canvas () {
 			} else {
 				ctx2.strokeStyle = p.sameCountry ? blue : red;
 			}
-			ctx2.lineWidth = 1.5;
 
 			ctx2.beginPath();
 			ctx2.moveTo(p.x0*scale2 + x0, p.y0*scale2 + y0);
