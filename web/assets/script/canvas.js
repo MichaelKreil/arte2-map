@@ -342,6 +342,31 @@ function Canvas () {
 			mapData.countries[key] = { x:1000*sumX/count, y:1000*sumY/count };
 		})
 
+		mapData.countries.AT.x += 10;
+
+		mapData.countries.BE.x += 10;
+
+		mapData.countries.DE.x -= 10;
+
+		mapData.countries.FI.x -= 10;
+		mapData.countries.FI.y += 60;
+
+		mapData.countries.GB.x += 10;
+		mapData.countries.GB.y += 40;
+
+		mapData.countries.GR.x -= 10;
+
+		mapData.countries.IE.x += 10;
+
+		mapData.countries.NO.x -= 30;
+		mapData.countries.NO.y += 80;
+
+		mapData.countries.SE.x -= 14;
+		mapData.countries.SE.y += 100;
+
+		mapData.countries.TR.x -= 100;
+		mapData.countries.TR.y += 30;
+
 		function project(polygon) {
 			polygon.forEach(function (p) {
 				p[0] = (p[0]-dx)/scale;
