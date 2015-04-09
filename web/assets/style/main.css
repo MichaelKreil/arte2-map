@@ -265,7 +265,7 @@ html, body, #content {
 	}
 }
 
-@media (min-width: 651px) and (max-height:700px) {
+@media (min-width: 651px) and (max-height:720px) {
 	h1 {
 		margin-bottom: 15px;
 	}
@@ -274,7 +274,7 @@ html, body, #content {
 	}
 }
 
-@media (min-width: 651px) and (max-height:600px) {
+@media (min-width: 651px) and (max-height:660px) {
 	h1 {
 		margin-bottom: 15px;
 		font-size: 25px;
