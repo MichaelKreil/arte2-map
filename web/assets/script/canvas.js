@@ -244,7 +244,7 @@ function Canvas () {
 			//return
 			var x = circle.x*scale2 + x0;
 			var y = circle.y*scale2 + y0;
-			var r = circle.r*scale2*1.1 + 10;
+			var r = (circle.r+10)*scale2;
 
 			ctx2.beginPath();
 
