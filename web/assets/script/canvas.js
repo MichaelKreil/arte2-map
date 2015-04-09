@@ -62,25 +62,24 @@ function Canvas () {
 			})
 		}
 
-		countryCircles = {};
+		Object.keys(countryCircles).forEach(function (key) {
+			countryCircles[key].used = false;
+		});
 		graph.nodes.forEach(function (node) {
 			var key = node.country;
 			if (!countryCircles[key]) {
 				countryCircles[key] = {
-					count:0,
+					r:0,
 					code:key,
-					x: mapData.countries[key].x/1000,
-					y: mapData.countries[key].y/1000
-				};
+					x: mapData.countries[key].x,
+					y: mapData.countries[key].y
+				}
 			}
-			countryCircles[node.country].count++;
+			countryCircles[key].used = true;
 		})
 		Object.keys(countryCircles).forEach(function (key) {
-			var circle = countryCircles[key];
-			circle.r = 0.009*Math.sqrt(circle.count);
+			if (!countryCircles[key].used) delete countryCircles[key];
 		});
-
-		redraw1();
 	}
 
 	me.setView = function (_view) {
@@ -234,9 +233,9 @@ function Canvas () {
 				r = Math.max(r, dis);
 			})
 
-			circle.x = cx/2;
-			circle.y = cy/2;
-			circle.r = r/2;
+			circle.x += (cx/2 - circle.x)*0.2;
+			circle.y += (cy/2 - circle.y)*0.2;
+			circle.r += ( r/2 - circle.r)*0.2;
 
 			drawCircle(circle);
 		});
