@@ -13,6 +13,7 @@ function Canvas () {
 	var packetCount = 2000;
 	var clickObjects = [];
 	var popup = $('#popup');
+	var countryCircles = {};
 
 	initMap();
 	resize();
@@ -60,6 +61,26 @@ function Canvas () {
 				offset: Math.random()*(path.length-1)
 			})
 		}
+
+		countryCircles = {};
+		graph.nodes.forEach(function (node) {
+			var key = node.country;
+			if (!countryCircles[key]) {
+				countryCircles[key] = {
+					count:0,
+					code:key,
+					x: mapData.countries[key].x/1000,
+					y: mapData.countries[key].y/1000
+				};
+			}
+			countryCircles[node.country].count++;
+		})
+		Object.keys(countryCircles).forEach(function (key) {
+			var circle = countryCircles[key];
+			circle.r = 0.009*Math.sqrt(circle.count);
+		});
+
+		redraw1();
 	}
 
 	me.setView = function (_view) {
@@ -102,17 +123,22 @@ function Canvas () {
 
 			var index = Math.floor(packet.offset);
 			var a = packet.offset - index;
-			var a0 = Math.max(0, a-0.01);
 			var p1 = packet.path[index];
 			var p2 = packet.path[index+1];
+
+			packet.sameCountry = (p1.country == p2.country);
+			packet.inEu = (p1.country != 'US') && (p2.country != 'US');
+
+			if (packet.inEu) {
+				var a0 = Math.max(0, a-0.02);
+			} else {
+				var a0 = Math.max(0, a-0.007);
+			}
 
 			packet.x  = p1.x*(1-a ) + a*p2.x;
 			packet.y  = p1.y*(1-a ) + a*p2.y;
 			packet.x0 = p1.x*(1-a0) + a0*p2.x;
 			packet.y0 = p1.y*(1-a0) + a0*p2.y;
-
-			packet.sameCountry = (p1.country == p2.country);
-			packet.inEu = (p1.country != 'US') && (p2.country != 'US');
 		})
 	}, 40);
 
@@ -125,6 +151,7 @@ function Canvas () {
 	}
 
 	function redraw1() {
+		//return;
 		ctx1.fillStyle = '#f0eeec';
 		ctx1.fillRect(0, 0, width, height);
 
@@ -132,18 +159,18 @@ function Canvas () {
 		ctx1.lineWidth = 2;
 
 		ctx1.beginPath();
-		mapData.all.forEach(draw);
+		mapData.all.forEach(drawPolygon);
 		ctx1.fillStyle = '#fff';
 		ctx1.fill();
 		ctx1.stroke();
 
 		ctx1.beginPath();
-		mapData.negative.forEach(draw);
+		mapData.negative.forEach(drawPolygon);
 		ctx1.fillStyle = '#f0eeec';
 		ctx1.fill();
 		ctx1.stroke();
 
-		function draw(poly) {
+		function drawPolygon(poly) {
 			for (var i = 0; i < poly.length; i++) {
 				var x = poly[i][0]*scale + x0;
 				var y = poly[i][1]*scale + y0;
@@ -166,6 +193,52 @@ function Canvas () {
 		if (!graph) return;
 
 		var scale2 = scale / 1000;
+
+		
+		Object.keys(countryCircles).forEach(function (key) {
+			var circle = countryCircles[key];
+			circle.minX =  1e100;
+			circle.maxX = -1e100;
+			circle.minY =  1e100;
+			circle.maxY = -1e100;
+		});
+		graph.nodes.forEach(function (node) {
+			var circle = countryCircles[node.country];
+			if (circle.minX > node.x) circle.minX = node.x;
+			if (circle.minY > node.y) circle.minY = node.y;
+			if (circle.maxX < node.x) circle.maxX = node.x;
+			if (circle.maxY < node.y) circle.maxY = node.y;
+		})
+		Object.keys(countryCircles).forEach(function (key) {
+			var circle = countryCircles[key];
+			circle.x = (circle.maxX + circle.minX)/2;
+			circle.y = (circle.maxY + circle.minY)/2;
+			circle.r = Math.max((circle.maxX - circle.minX), (circle.maxY - circle.minY))/2;
+			drawCircle(circle);
+		});
+
+		function drawCircle(circle) {
+			//return
+			var x = circle.x*scale2 + x0;
+			var y = circle.y*scale2 + y0;
+			var r = circle.r*scale2*1.1 + 10;
+
+			ctx2.beginPath();
+
+			if (ctx2.ellipse) {
+				ctx2.ellipse(x, y, r, r, 0, 0, Math.PI*2);
+			} else {
+				ctx2.arc(x, y, r, 0, Math.PI*2, false)
+			}
+			ctx2.fillStyle = 'rgba(255,255,255,1)';
+			ctx2.fillStyle = 'rgba(255,120,0,0.1)';
+			ctx2.fill();
+			ctx2.lineWidth = 3;
+			ctx2.strokeStyle = 'rgba(244,244,244,1)';
+			//ctx2.stroke();
+		}
+
+
 
 		ctx2.strokeStyle = 'rgba(170,170,170,0.1)';
 		
@@ -193,12 +266,12 @@ function Canvas () {
 		})
 
 		
-		ctx2.fillStyle = '#000';
+		ctx2.fillStyle = 'rgb(128,128,128)';
 		clickObjects = [];
 		graph.nodes.forEach(function (node) {
 			var r = node.size * scale2 + 1;
 			var x = node.x*scale2 + x0;
-			var y = node.y*scale2 + y0
+			var y = node.y*scale2 + y0;
 			
 			ctx2.beginPath();
 			circle(x, y, r);
