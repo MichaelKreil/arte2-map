@@ -146,6 +146,24 @@ html, body, #content {
 			margin-top: 7px;
 		}
 
+	#source {
+		position: absolute;
+		left: 5px;
+		bottom: 5px;
+		line-height: 1em;
+		font-size: 10px;
+		opacity: 0.3;
+		color: #000;
+	}
+
+		#source:hover {
+			opacity: 1.0;
+		}
+
+		#source a {
+			color: #000;
+		}
+
 	#popup {
 		position: absolute;
 		display: none;
