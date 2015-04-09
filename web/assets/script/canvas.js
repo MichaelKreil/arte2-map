@@ -58,7 +58,7 @@ function Canvas () {
 			var path = paths[index];
 			packets.push({
 				path: path,
-				offset: Math.random()*(path.length-1)
+				offset: Math.floor(Math.random()*(path.length-1)) + Math.random()/2
 			})
 		}
 
@@ -118,27 +118,30 @@ function Canvas () {
 	setInterval(redraw2, 40);
 	setInterval(function () {
 		packets.forEach(function (packet) {
-			packet.offset += 0.01;
+			packet.offset += 0.005;
 			if (packet.offset > packet.path.length-1) packet.offset -= packet.path.length-1;
 
 			var index = Math.floor(packet.offset);
-			var a = packet.offset - index;
 			var p1 = packet.path[index];
 			var p2 = packet.path[index+1];
 
+			var l = Math.sqrt(sqr(p1.x-p2.x) + sqr(p1.y-p2.y));
+			l = 5/(l+1e-5);
+			var a2 = (packet.offset - index)*2;
+			var a1 = a2-l;
+
+			if (a1 < 0) { a1 = 0; }
+			if (a2 < 0) { a2 = 0; }
+			if (a1 > 1) { a1 = 1; packet.offset = index+1; }
+			if (a2 > 1) { a2 = 1; }
+
+			packet.x  = p1.x*(1-a2) + a2*p2.x;
+			packet.y  = p1.y*(1-a2) + a2*p2.y;
+			packet.x0 = p1.x*(1-a1) + a1*p2.x;
+			packet.y0 = p1.y*(1-a1) + a1*p2.y;
+
 			packet.sameCountry = (p1.country == p2.country);
 			packet.inEu = (p1.country != 'US') && (p2.country != 'US');
-
-			if (packet.inEu) {
-				var a0 = Math.max(0, a-0.02);
-			} else {
-				var a0 = Math.max(0, a-0.007);
-			}
-
-			packet.x  = p1.x*(1-a ) + a*p2.x;
-			packet.y  = p1.y*(1-a ) + a*p2.y;
-			packet.x0 = p1.x*(1-a0) + a0*p2.x;
-			packet.y0 = p1.y*(1-a0) + a0*p2.y;
 		})
 	}, 40);
 
