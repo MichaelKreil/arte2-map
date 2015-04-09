@@ -198,25 +198,46 @@ function Canvas () {
 		var scale2 = scale / 1000;
 
 		
+		var vectors = [[0,1],[1,0],[1,1],[1,-1]].map(function (v) {
+			var r = Math.sqrt(v[0]*v[0] + v[1]*v[1]);
+			return [v[0]/r, v[1]/r];
+		});
+
 		Object.keys(countryCircles).forEach(function (key) {
 			var circle = countryCircles[key];
-			circle.minX =  1e100;
-			circle.maxX = -1e100;
-			circle.minY =  1e100;
-			circle.maxY = -1e100;
+			circle.minMax = vectors.map(function () { return [1e100,-1e100] });
 		});
+
 		graph.nodes.forEach(function (node) {
 			var circle = countryCircles[node.country];
-			if (circle.minX > node.x) circle.minX = node.x;
-			if (circle.minY > node.y) circle.minY = node.y;
-			if (circle.maxX < node.x) circle.maxX = node.x;
-			if (circle.maxY < node.y) circle.maxY = node.y;
+			vectors.forEach(function (vector, index) {
+				var v = vector[0]*node.x + vector[1]*node.y;
+				var minMax = circle.minMax[index];
+				if (minMax[0] > v) minMax[0] = v;
+				if (minMax[1] < v) minMax[1] = v;
+			})
 		})
+
 		Object.keys(countryCircles).forEach(function (key) {
 			var circle = countryCircles[key];
-			circle.x = (circle.maxX + circle.minX)/2;
-			circle.y = (circle.maxY + circle.minY)/2;
-			circle.r = Math.max((circle.maxX - circle.minX), (circle.maxY - circle.minY))/2;
+
+			var cx = 0;
+			var cy = 0;
+			var r = 0;
+
+			vectors.forEach(function (vector, index) {
+				var minMax = circle.minMax[index];
+				var avg = (minMax[1] + minMax[0])/2;
+				var dis =  minMax[1] - minMax[0];
+				cx += vector[0]*avg;
+				cy += vector[1]*avg;
+				r = Math.max(r, dis);
+			})
+
+			circle.x = cx/2;
+			circle.y = cy/2;
+			circle.r = r/2;
+
 			drawCircle(circle);
 		});
 
