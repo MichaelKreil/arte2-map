@@ -255,26 +255,14 @@ function Canvas () {
 				ctx2.arc(x, y, r, 0, Math.PI*2, false)
 			}
 			ctx2.fillStyle = 'rgba(255,255,255,1)';
-			ctx2.fillStyle = 'rgba(255,120,0,0.1)';
+			ctx2.fillStyle = 'rgba(255,127,0,0.1)';
 			ctx2.fill();
-			ctx2.lineWidth = 3;
-			ctx2.strokeStyle = 'rgba(244,244,244,1)';
-			//ctx2.stroke();
 		}
-
-
-
-		ctx2.strokeStyle = 'rgba(170,170,170,0.1)';
 		
 		packets.forEach(function (p) {
 
-			var alpha = Math.sqrt(sqr(p.x0 - p.x) + sqr(p.y0 - p.y))+1e-5;
-			alpha = 3/alpha;
-			if (alpha < 0) alpha = 0;
-			if (alpha > 1) alpha = 1;
-
-			var blue = 'rgba(112,159,229,'+alpha+')';
-			var red = 'rgba(255,0,0,'+alpha+')';
+			var blue = 'rgba(124,176,255,0.5)';
+			var red = 'rgba(230,0,0,0.5)';
 
 			if (graph.queryString == 'eu') {
 				ctx2.strokeStyle = p.inEu ? blue : red;
