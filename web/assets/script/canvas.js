@@ -155,10 +155,10 @@ function Canvas () {
 
 	function redraw1() {
 		//return;
-		ctx1.fillStyle = '#f0eeec';
+		ctx1.fillStyle = '#e5e3e1';
 		ctx1.fillRect(0, 0, width, height);
 
-		ctx1.strokeStyle = '#f0eeec';
+		ctx1.strokeStyle = '#e5e3e1';
 		ctx1.lineWidth = lineWidth*2;
 
 		ctx1.beginPath();
@@ -169,7 +169,7 @@ function Canvas () {
 
 		ctx1.beginPath();
 		mapData.negative.forEach(drawPolygon);
-		ctx1.fillStyle = '#f0eeec';
+		ctx1.fillStyle = '#e5e3e1';
 		ctx1.fill();
 		ctx1.stroke();
 
@@ -255,7 +255,7 @@ function Canvas () {
 				ctx2.arc(x, y, r, 0, Math.PI*2, false)
 			}
 			ctx2.fillStyle = 'rgba(255,255,255,1)';
-			ctx2.fillStyle = 'rgba(255,127,0,0.1)';
+			ctx2.fillStyle = 'rgba(255,127,0,0.15)';
 			ctx2.fill();
 		}
 		

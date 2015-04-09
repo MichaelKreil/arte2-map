@@ -44,8 +44,8 @@ html, body, #content {
 				border-top: 0px solid transparent;
 				border-bottom: 0px solid transparent;
 				border-left: 0px solid #7cb0ff;
-			        transition: border-width 0.1s, right 0.1s, top 0.1s;
-			-webkit-transition: border-width 0.1s, right 0.1s, top 0.1s;
+				        transition: border-width 0.1s, right 0.1s, top 0.1s;
+				-webkit-transition: border-width 0.1s, right 0.1s, top 0.1s;
 			}
 
 			.country_button:hover {
@@ -127,7 +127,7 @@ html, body, #content {
 		position: absolute;
 		top: 10px;
 		right: 10px;
-		background-color: #e6e7e8;
+		background-color: #e5e3e1;
 		font-size: 11px;
 		padding: 3px 5px;
 		width: 140px;
