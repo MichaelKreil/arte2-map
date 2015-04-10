@@ -1,6 +1,6 @@
 # German
 
-Für die Visualisierung von ???? mussten wir herausfinden, wie der Internetverkehr durch Europa verläuft. Dafür haben wir **[RIPE Atlas](https://atlas.ripe.net)** von [RIPE](http://de.wikipedia.org/wiki/RIPE_Network_Coordination_Centre) verwendet. Was das genau ist, wird [hier erklärt](https://atlas.ripe.net/about/).
+Für die Visualisierung unter <http://future.arte.tv/de/datenpakete-auf-reisen> mussten wir herausfinden, wie der Internetverkehr durch Europa verläuft. Dafür haben wir **[RIPE Atlas](https://atlas.ripe.net)** von [RIPE](http://de.wikipedia.org/wiki/RIPE_Network_Coordination_Centre) verwendet. Was das genau ist, wird [hier erklärt](https://atlas.ripe.net/about/).
 
 ## 25.000 Traceroutes
 
@@ -39,7 +39,7 @@ Außerdem natürlich noch großen Dank an [Sylke Gruhnwald](https://twitter.com/
 
 # English
 
-For the visualization on ???? we had to figure out how the Internet traffic passes through Europe. We used **[RIPE Atlas](https://atlas.ripe.net)** from [RIPE](http://de.wikipedia.org/wiki/RIPE_Network_Coordination_Centre) to make thousands of traceroutes. More on RIPE Atlas: [here](https://atlas.ripe.net/about/).
+For the visualization on <http://future.arte.tv/en/travelling-data-packets> we had to figure out how the Internet traffic passes through Europe. We used **[RIPE Atlas](https://atlas.ripe.net)** from [RIPE](http://de.wikipedia.org/wiki/RIPE_Network_Coordination_Centre) to make thousands of traceroutes. More on RIPE Atlas: [here](https://atlas.ripe.net/about/).
 
 ## 25,000 Traceroutes
 
