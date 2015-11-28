@@ -10,6 +10,11 @@ $(function () {
 		setView(country);
 	})
 
+	setTimeout(function () { setView('de') }, 10*1000*25);
+	setTimeout(function () { setView('fr') }, 17*1000*25);
+	setTimeout(function () { setView('ch') }, 24*1000*25);
+	setTimeout(function () { setView('eu') }, 31*1000*25);
+
 	var fullscreen = new Fullscreen();
 	if (fullscreen) {
 		$('#btn_fullscreen').click(function (e) {

@@ -1,4 +1,6 @@
 function Canvas () {
+	var speed = 1/25;
+
 	var me = {};
 	var wrapper = $('#map');
 	var canvas1 = $('#canvas1');
@@ -92,7 +94,7 @@ function Canvas () {
 		}
 		if (viewInterval) clearInterval(viewInterval);
 		var t0 = (new Date()).getTime();
-		var duration = 2000;
+		var duration = 2000/speed;
 		var view0 = view;
 		viewInterval = setInterval(function () {
 			var t = (new Date()).getTime();
@@ -117,7 +119,7 @@ function Canvas () {
 	setInterval(redraw2, 40);
 	setInterval(function () {
 		packets.forEach(function (packet) {
-			packet.offset += 0.005;
+			packet.offset += 0.005*speed;
 			if (packet.offset > packet.path.length-1) packet.offset -= packet.path.length-1;
 
 			var index = Math.floor(packet.offset);
@@ -234,9 +236,9 @@ function Canvas () {
 				r = Math.max(r, dis);
 			})
 
-			circle.x += (cx/2 - circle.x)*0.2;
-			circle.y += (cy/2 - circle.y)*0.2;
-			circle.r += ( r/2 - circle.r)*0.2;
+			circle.x += (cx/2 - circle.x)*0.2*speed;
+			circle.y += (cy/2 - circle.y)*0.2*speed;
+			circle.r += ( r/2 - circle.r)*0.2*speed;
 
 			drawCircle(circle);
 		});
